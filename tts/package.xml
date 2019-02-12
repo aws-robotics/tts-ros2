@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="2">
+  <name>tts</name>
+  <version>1.0.0</version>
+  <description>
+    TTS
+  </description>
+  <maintainer email="ros-contributions@amazon.com">AWS RoboMaker</maintainer>
+  <license>Apache License 2.0</license>
+
+  <author>AWS RoboMaker</author>
+  <author email="ros-contributions@amazon.com">AWS RoboMaker</author>
+
+  <exec_depend>tts_interfaces</exec_depend>
+  <exec_depend>python-boto3</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

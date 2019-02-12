@@ -1,0 +1,18 @@
+# This file defines mappings between ROS 1 and ROS 2 interfaces.
+# It is used with the ros1_bridge to allow for communication between ROS1 and ROS2.
+
+-
+  ros1_package_name: 'tts-ros1'
+  ros1_service_name: 'Polly'
+  ros2_package_name: 'tts-ros2'
+  ros2_service_name: 'Polly'
+-
+  ros1_package_name: 'tts-ros1'
+  ros1_service_name: 'Synthesizer'
+  ros2_package_name: 'tts-ros2'
+  ros2_service_name: 'Synthesizer'
+-
+  ros1_package_name: 'tts-ros1'
+  ros1_action_name: 'Speech'
+  ros2_package_name: 'tts-ros2'
+  ros2_action_name: 'Speech'
