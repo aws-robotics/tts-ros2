@@ -383,10 +383,16 @@ def main():
 
     node = AmazonPollyNode(node_name, service_name)
 
-    rclpy.spin(node)
-
-    node.destroy_node()
-    rclpy.shutdown()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        print('Shutting down polly server')
+    except BaseException:
+        print('Exception in polly server:', file=sys.stderr)
+        raise
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
 
 
 if __name__ == '__main__':

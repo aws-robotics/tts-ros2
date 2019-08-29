@@ -122,7 +122,7 @@ class TestSynthesizer(unittest.TestCase):
         source_file_dir = os.path.dirname(os.path.abspath(__file__))
         synthersizer_path = os.path.join(source_file_dir, '..', 'tts', 'services', 'synthesizer.py')
         import subprocess
-        o = subprocess.check_output(['python', synthersizer_path, '-h']).decode('utf-8')
+        o = subprocess.check_output(['python3', synthersizer_path, '-h']).decode('utf-8')
         self.assertTrue(str(o).startswith('Usage: '))
 
     @patch('tts.services.synthesizer.SynthesizerNode')
