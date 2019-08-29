@@ -245,10 +245,16 @@ def main():
     else:
         node = SynthesizerNode(node_name=node_name, service_name=service_name, engine=engine)
 
-    rclpy.spin(node)
-
-    node.destroy_node()
-    rclpy.shutdown()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        print('Shutting down synthesizer server')
+    except BaseException:
+        print('Exception in synthesizer server:', file=sys.stderr)
+        raise
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
 
 
 if __name__ == '__main__':

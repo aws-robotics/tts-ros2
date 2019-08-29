@@ -13,26 +13,38 @@
 # express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 
-from __future__ import print_function
-
 import json
 import unittest
-
 import rclpy
+
+import launch_testing
+from launch import LaunchDescription
+from launch.actions import OpaqueFunction
+from launch_ros.actions import Node
 
 from tts_interfaces.srv import Polly
 from tts_interfaces.srv import Synthesizer
 
-
-PKG = 'tts'
-NAME = 'amazonpolly'
-
+def generate_test_description(ready_fn):
+    polly_server = Node(package='tts', node_executable='polly_server', additional_env={'PYTHONUNBUFFERED': '1'}, output='screen')
+    synthesizer_server = Node(package='tts', node_executable='synthesizer_server', additional_env={'PYTHONUNBUFFERED': '1'}, output='screen')
+    launch_description = LaunchDescription([
+        polly_server,
+        synthesizer_server,
+        OpaqueFunction(function=lambda context: ready_fn()),
+    ])
+    return launch_description, locals()
 
 class TestPlainText(unittest.TestCase):
-    pass
+    @classmethod
+    def setUpClass(cls):
+        rclpy.init()
+
+    @classmethod
+    def tearDownClass(cls):
+        rclpy.shutdown()
 
     def test_plain_text_to_wav_via_polly_node(self):
-        rclpy.init()
         node = rclpy.create_node('integtest')
         client = node.create_client(Polly, 'polly')
 
@@ -76,7 +88,6 @@ class TestPlainText(unittest.TestCase):
         self.assertIsNotNone(m)
 
         node.destroy_node()
-        rclpy.shutdown()
 
     def test_plain_text_using_polly_class(self):
         from tts.services.amazonpolly import AmazonPolly
@@ -105,7 +116,6 @@ class TestPlainText(unittest.TestCase):
         self.assertIsNotNone(m)
 
     def test_plain_text_via_synthesizer_node(self):
-        rclpy.init()
         node = rclpy.create_node('integtest')
         client = node.create_client(Synthesizer, 'synthesizer')
 
@@ -149,10 +159,8 @@ class TestPlainText(unittest.TestCase):
         self.assertIsNotNone(m)
 
         node.destroy_node()
-        rclpy.shutdown()
 
     def test_plain_text_to_mp3_via_polly_node(self):
-        rclpy.init()
         node = rclpy.create_node('integtest')
         client = node.create_client(Polly, 'polly')
 
@@ -197,11 +205,8 @@ class TestPlainText(unittest.TestCase):
         self.assertIsNotNone(m)
 
         node.destroy_node()
-        rclpy.shutdown()
-
 
     def test_simple_ssml_via_polly_node(self):
-        rclpy.init()
         node = rclpy.create_node('integtest')
         client = node.create_client(Polly, 'polly')
 
@@ -245,11 +250,8 @@ class TestPlainText(unittest.TestCase):
         self.assertIsNotNone(m)
 
         node.destroy_node()
-        rclpy.shutdown()
-
 
     def test_simple_ssml_via_synthesizer_node(self):
-        rclpy.init()
         node = rclpy.create_node('integtest')
         client = node.create_client(Synthesizer, 'synthesizer')
 
@@ -293,8 +295,9 @@ class TestPlainText(unittest.TestCase):
         self.assertIsNotNone(m)
 
         node.destroy_node()
-        rclpy.shutdown()
 
-
-if __name__ == '__main__':
-    unittest.main()
+@launch_testing.post_shutdown_test()
+class TestNodesStatusAfterShutdown(unittest.TestCase):
+    def test_processes_finished_gracefully(self, proc_info):
+        """Test that both executables finished gracefully."""
+        launch_testing.asserts.assertExitCodes(proc_info)
