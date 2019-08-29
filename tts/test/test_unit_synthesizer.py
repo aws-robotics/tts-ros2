@@ -13,9 +13,7 @@
 # express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 
-from __future__ import print_function
-
-from mock import patch, MagicMock
+from unittest.mock import patch, MagicMock
 import unittest
 from pprint import pprint
 
