@@ -12,6 +12,8 @@
   <author>AWS RoboMaker</author>
   <author email="ros-contributions@amazon.com">AWS RoboMaker</author>
 
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>launch</exec_depend>
   <exec_depend>tts_interfaces</exec_depend>
   <exec_depend>python3-boto3</exec_depend>
   <exec_depend>rclpy</exec_depend>
