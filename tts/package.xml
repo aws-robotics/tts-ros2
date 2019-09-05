@@ -1,11 +1,8 @@
 <?xml version="1.0"?>
-<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
-<package format="2">
+<package format="3">
   <name>tts</name>
-  <version>1.0.0</version>
-  <description>
-    TTS
-  </description>
+  <version>2.0.0</version>
+  <description>Package enabling a robot to speak with a human voice by providing a Text-To-Speech ROS service</description>
   <maintainer email="ros-contributions@amazon.com">AWS RoboMaker</maintainer>
   <license>Apache License 2.0</license>
 
