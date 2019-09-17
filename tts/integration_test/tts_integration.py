@@ -49,7 +49,7 @@ class TestPlainText(unittest.TestCase):
         client = node.create_client(Polly, 'polly')
 
         retries = 0
-        while not client.wait_for_service(timeout_sec=1.0):
+        while not client.wait_for_service(timeout_sec=2.0):
             retries += 1
             self.failIf(retries > 3, 'service is not available')
 
@@ -120,7 +120,7 @@ class TestPlainText(unittest.TestCase):
         client = node.create_client(Synthesizer, 'synthesizer')
 
         retries = 0
-        while not client.wait_for_service(timeout_sec=1.0):
+        while not client.wait_for_service(timeout_sec=2.0):
             retries += 1
             self.failIf(retries > 3, 'service is not available')
 
@@ -165,7 +165,7 @@ class TestPlainText(unittest.TestCase):
         client = node.create_client(Polly, 'polly')
 
         retries = 0
-        while not client.wait_for_service(timeout_sec=1.0):
+        while not client.wait_for_service(timeout_sec=2.0):
             retries += 1
             self.failIf(retries > 3, 'service is not available')
 
@@ -211,7 +211,7 @@ class TestPlainText(unittest.TestCase):
         client = node.create_client(Polly, 'polly')
 
         retries = 0
-        while not client.wait_for_service(timeout_sec=1.0):
+        while not client.wait_for_service(timeout_sec=2.0):
             retries += 1
             self.failIf(retries > 3, 'service is not available')
 
@@ -256,7 +256,7 @@ class TestPlainText(unittest.TestCase):
         client = node.create_client(Synthesizer, 'synthesizer')
 
         retries = 0
-        while not client.wait_for_service(timeout_sec=1.0):
+        while not client.wait_for_service(timeout_sec=2.0):
             retries += 1
             self.failIf(retries > 3, 'service is not available')
 
