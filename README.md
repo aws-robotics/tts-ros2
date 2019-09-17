@@ -1,7 +1,5 @@
 # TTS ROS2
 
-**Note: this repository is under active development. The package provided here is a release candidate; the API may change without notice and no support is provided for it at the moment.**
-
 ## Overview
 The `tts` ROS node enables a robot to speak with a human voice by providing a Text-To-Speech service.
 Out of the box this package listens to a speech topic, submits text to the Amazon Polly cloud service to generate an audio stream file,
@@ -29,7 +27,7 @@ The source code is released under an [Apache 2.0].
     * "master" branch [![Build Status](https://travis-ci.org/aws-robotics/tts-ros2.svg?branch=master)](https://travis-ci.org/aws-robotics/tts-ros2/branches)
     * "release-latest" branch [![Build Status](https://travis-ci.org/aws-robotics/tts-ros2.svg?branch=release-latest)](https://travis-ci.org/aws-robotics/tts-ros2/branches)
 * ROS build farm:
-    * Unreleased
+   * ROS Dashing @ u18.04 Bionic [![Build Status](http://build.ros2.org/job/Dbin_uB64__tts__ubuntu_bionic_amd64__binary/badge/icon)](http://build.ros2.org/job/Dbin_uB64__tts__ubuntu_bionic_amd64__binary)
 
 ## Installation
 
@@ -38,13 +36,6 @@ You will need to create an AWS Account and configure the credentials to be able 
 
 This node will require the following AWS account IAM role permissions:
 - `polly:SynthesizeSpeech`
-
-### Dependencies
-In order to use the Text-To-Speech node with ROS kinetic you must update the version of boto3 that is installed on your system to at least version 1.9.0. You can do this by running the command:
-
-        pip3 install -U boto3
-
-This step is required before the node will work properly because the version of boto3 is not new enough for the features required by this node. 
 
 ### Binaries
 On Ubuntu you can install the latest version of this package using the following command
@@ -114,20 +105,16 @@ This command will give you a list of output devices and tell you which one has b
 
     pacmd list-sinks | grep -E '(index:|name:|product.name)'
 
-## Launch Files
-An example launch file called `sample_application.launch` is provided.
-
-
 ## Usage
 
 ### Run the node
 - **Plain text**
-  - `roslaunch tts sample_application.launch`
-  - `rosrun tts voicer.py 'Hello World'`
+  - `ros2 launch tts tts.launch.py`
+  - `ros2 run tts voicer 'Hello World'`
 
 - **SSML**
-  - `roslaunch tts sample_application.launch`
-  - `rosrun tts voicer.py '<speak>Mary has a <amazon:effect name="whispered">little lamb.</amazon:effect></speak>' '{"text_type":"ssml"}'`
+  - `ros2 launch tts tts.launch.py`
+  - `ros2 run tts voicer '<speak>Mary has a <amazon:effect name="whispered">little lamb.</amazon:effect></speak>' '{"text_type":"ssml"}'`
 
 
 ## Configuration File and Parameters
@@ -140,32 +127,6 @@ An example launch file called `sample_application.launch` is provided.
 | output_format | *string* | Valid formats are `ogg_vorbis`, `mp3` and `pcm`. Default: `ogg_vorbis` |
 | output_path | *string* | The audio data will be saved as a local file for playback and reuse/inspection purposes. This parameter is to provide a preferred path to save the file. Default: `.` |
 | sample_rate | *string* | Note `16000` is a valid sample rate for all supported formats. Default: `16000`. |
-
-
-## Performance and Benchmark Results
-We evaluated the performance of this node by runnning the followning scenario on a Raspberry Pi 3 Model B:
-- Launch a baseline graph containing the talker and listener nodes from the [roscpp_tutorials package](https://wiki.ros.org/roscpp_tutorials), plus two additional nodes that collect CPU and memory usage statistics. Allow the nodes to run for 60 seconds. 
-- Launch the nodes `polly_node`, `synthesizer_node` and `tts_node` by using the launch file `sample_application.launch` as described above. At the same time, perform several calls to the action `tts/action/Speech.action` using the `voicer.py` script descried above, by running the following script in the background:
-
-```bash
-rosrun tts voicer.py  '<speak>Amazon Polly is a <emphasis level="strong">Text-to-Speech</emphasis> (TTS) cloud service</speak>' '{"text_type":"ssml"}' ; sleep 1
-rosrun tts voicer.py  '<speak>that converts text into lifelike speech</speak>' '{"text_type":"ssml"}' ; sleep 1
-rosrun tts voicer.py  '<speak>You can use Amazon Polly to develop applications that increase <emphasis level="moderate">engagement and accessibility</emphasis></speak>' '{"text_type":"ssml"}' ; sleep 1
-rosrun tts voicer.py  '<speak>Amazon Polly supports multiple languages and includes a variety of lifelike voices</speak>' '{"text_type":"ssml"}' ; sleep 1
-rosrun tts voicer.py  '<speak>so you can build speech-enabled applications that work in multiple locations</speak>' '{"text_type":"ssml"}' ; sleep 1
-rosrun tts voicer.py  '<speak>and use the ideal voice for your customers</speak>' '{"text_type":"ssml"}' ; sleep 1
-```
-
-- Allow the nodes to run for 180 seconds. 
-- Terminate the  `polly_node`, `synthesizer_node` and `tts_node` nodes, and allow the reamaining nodes to run for 60 seconds.
-
-The following graph shows the CPU usage during that scenario.  The 1 minute average CPU usage starts at 16.75% during the launch of the baseline graph, and stabilizes at 6%. When we launch the Polly nodes around second 85, the 1 minute average CPU increases up to a peak of 22.25% and stabilizes around 20%. After we stop making requests with the script `voicer.py` around second 206 the 1 minute average CPU usage moves to around 12%, and decreases gradually, and goes down again to 2.5 % after we stop the Polly nodes at the end of the scenario. 
-
-![cpu](wiki/images/cpu.svg)
-
-The following graph shows the memory usage during that scenario. We start with a memory usage of around 227 MB that increases to around 335 MB (+47.58%) when we lanch the Polly nodes around second 85, and gets to a peak of 361 MB (+59% wrt. initial value) while we are calling the script `voicer.py`. The memory usage goes back to the initial values after stopping the Polly nodes. 
-
-![memory](wiki/images/memory.svg)
 
 
 ## Nodes
