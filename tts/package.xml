@@ -1,13 +1,18 @@
 <?xml version="1.0"?>
 <package format="3">
   <name>tts</name>
-  <version>2.0.0</version>
+  <version>2.0.1</version>
   <description>Package enabling a robot to speak with a human voice by providing a Text-To-Speech ROS service</description>
   <maintainer email="ros-contributions@amazon.com">AWS RoboMaker</maintainer>
   <license>Apache License 2.0</license>
 
   <author>AWS RoboMaker</author>
   <author email="ros-contributions@amazon.com">AWS RoboMaker</author>
+
+  <exec_depend>python-gst-1.0</exec_depend>
+  <exec_depend>gstreamer1.0</exec_depend>
+  <exec_depend>gstreamer1.0-plugins-good</exec_depend>
+  <exec_depend>gstreamer1.0-alsa</exec_depend>
 
   <exec_depend>launch_ros</exec_depend>
   <exec_depend>launch</exec_depend>

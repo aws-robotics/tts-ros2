@@ -73,33 +73,33 @@ class Voicer(Node):
         playbin.set_state(Gst.State.NULL)
 
     def speak(self):
-        req = Synthesizer.Request()
-
-        req.text = sys.argv[1] if len(sys.argv) > 1 else 'I got no idea.'
-        req.metadata = sys.argv[2] if len(sys.argv) > 2 else ''
+        self.req = Synthesizer.Request()
+        self.req.text = sys.argv[1] if len(sys.argv) > 1 else 'I got no idea.'
+        self.req.metadata = sys.argv[2] if len(sys.argv) > 2 else ''
 
         while not self.synthesizer.wait_for_service(timeout_sec=1.0):
             self.logger.warn('service not available, waiting again...')
 
-        future = self.synthesizer.call_async(req)
-        while rclpy.ok():
-            rclpy.spin_once(self)
+        future = self.synthesizer.call_async(self.req)
+        future.add_done_callback(self.on_synthesize_done)
+        return future
 
-            if future.done():
-                if future.result() is not None:
-                    self.logger.info('Result: %s' % str(future.result()))
-                    self.handle_result(future.result())
-                else:
-                    self.logger.error('Exception while calling service: %r' % future.exception())
-                break
-
-        self.logger.info('Done speaking {}'.format(req.text))
+    def on_synthesize_done(self, future):
+        if future.result():
+            self.logger.info('Result: %s' % str(future.result()))
+            self.handle_result(future.result())
+            self.logger.info('Done speaking {}'.format(self.req.text))
+        else:
+            self.logger.error('Exception while calling service: %r' % future.exception())
 
 
 def main():
     rclpy.init()
     node = Voicer()
-    node.speak()
+    future = node.speak()
+    # Spin until future completes, then once more to execute its completion callback
+    rclpy.spin_until_future_complete(node, future)
+    rclpy.spin_once(node)
     node.destroy_node()
     rclpy.shutdown()
 
