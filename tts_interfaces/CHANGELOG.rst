@@ -2,6 +2,13 @@
 Changelog for package tts_interfaces
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix voicer and bump version to 2.0.1 (`#9 <https://github.com/aws-robotics/tts-ros2/issues/9>`_)
+  * Fix voicer and bump version to 2.0.1
+  * Bump version of tts_interfaces to 2.0.1
+* Contributors: AAlon
+
 2.0.0 (2019-09-06)
 ------------------
 * Bump version to 2.0.0 and add changelog

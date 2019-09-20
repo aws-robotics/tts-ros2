@@ -2,6 +2,14 @@
 Changelog for package tts
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix voicer and bump version to 2.0.1 (`#9 <https://github.com/aws-robotics/tts-ros2/issues/9>`_)
+  * Fix voicer and bump version to 2.0.1
+  * Bump version of tts_interfaces to 2.0.1
+* Increase wait_for_service timeout in tts_integration.py
+* Contributors: AAlon
+
 2.0.0 (2019-09-06)
 ------------------
 * Delete CHANGELOG.rst
