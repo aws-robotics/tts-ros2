@@ -58,7 +58,6 @@ class TestPolly(unittest.TestCase):
 
     @patch('tts.services.amazonpolly.Session')
     def test_good_synthesis_with_default_args(self, boto3_session_class_mock):
-        pass
         boto3_session_obj_mock = MagicMock()
         boto3_polly_obj_mock = MagicMock()
         boto3_polly_response_mock = MagicMock()
@@ -102,7 +101,6 @@ class TestPolly(unittest.TestCase):
         self.assertTrue(isinstance(res, Polly.Response))
 
         import json
-        print(res.result)
         j = json.loads(res.result)
         observed_audio_file_content = open(j['Audio File']).read()
         self.assertEqual(fake_audio_stream_data, observed_audio_file_content)
