@@ -21,7 +21,6 @@ from pprint import pprint
 class TestSynthesizer(unittest.TestCase):
 
     def setUp(self):
-        pass
         import tts
         pprint(dir(tts.services))
         self.patchers = {
@@ -36,7 +35,6 @@ class TestSynthesizer(unittest.TestCase):
         self.mocks = {s: p.start() for s, p in self.patchers.items()}
 
     def tearDown(self):
-        pass
         for p in self.patchers.values():
             p.stop()
 
