@@ -38,7 +38,7 @@ setup(
         'console_scripts': [
             'polly_server = tts.services.amazonpolly:main',
             'synthesizer_server = tts.services.synthesizer:main',
-            'voicer = tts.voicer:main',
+            'voicer = tts.scripts.voicer:main',
         ],
     },
 )
