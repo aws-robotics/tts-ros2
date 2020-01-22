@@ -2,6 +2,15 @@
 Changelog for package tts
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* bump version of tts to 2.0.2 in setup.py (`#16 <https://github.com/aws-robotics/tts-ros2/issues/16>`_)
+* bump package version for tts and tts_interfaces to 2.0.2 (`#15 <https://github.com/aws-robotics/tts-ros2/issues/15>`_)
+* missed a change with moving voicer.py to scripts directory in https://github.com/aws-robotics/tts-ros2/pull/13
+* move voicer to subdirectory similar to tts-ros1
+* remove unnecessary lines of code from unit tests
+* Contributors: M M, Ryan Newell
+
 2.0.1 (2019-09-20)
 ------------------
 * Fix voicer and bump version to 2.0.1 (`#9 <https://github.com/aws-robotics/tts-ros2/issues/9>`_)
