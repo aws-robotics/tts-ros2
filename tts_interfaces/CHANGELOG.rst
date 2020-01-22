@@ -2,8 +2,8 @@
 Changelog for package tts_interfaces
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.2 (2020-01-22)
+------------------
 * bump package version for tts and tts_interfaces to 2.0.2 (`#15 <https://github.com/aws-robotics/tts-ros2/issues/15>`_)
 * Contributors: Ryan Newell
 
