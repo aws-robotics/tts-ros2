@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="3">
   <name>tts_interfaces</name>
-  <version>2.0.1</version>
+  <version>2.0.2</version>
   <description>Contains message and service definitions used by tts.</description>
   <maintainer email="ros-contributions@amazon.com">AWS RoboMaker</maintainer>
   <license>Apache License 2.0</license>
